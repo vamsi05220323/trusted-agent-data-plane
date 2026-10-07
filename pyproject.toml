@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trusted-agent-data-plane"
+version = "0.1.0"
+description = "Validating, governing and auditing the data and actions used by agents."
+requires-python = ">=3.11"
+dependencies = ["pydantic>=2.10,<3", "fastapi>=0.115,<1", "uvicorn>=0.30,<1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "httpx>=0.27,<1", "ruff>=0.9,<1"]
+
+[project.scripts]
+trusted-data = "trusted_data_plane.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src", "."]
+include = ["trusted_data_plane*", "api*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
